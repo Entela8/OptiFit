@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.FavoritesAdapter
 import com.example.optifit.ui.theme.OptiFItTheme
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : ComponentActivity() {
@@ -76,8 +77,8 @@ class MainActivity : ComponentActivity() {
 
         // Create instances of Favorite videos with titles, descriptions, and thumbnail resource IDs
         val favoriteVideos = mutableListOf<Favorites>(
-            Favorites("Video 1", "Description 1", R.drawable.thumbnails, R.drawable.thumbnails),
-            Favorites("Video 2", "Description 2", R.drawable.thumbnails, R.drawable.thumbnails),
+            Favorites("Video 1", "Description 1", R.drawable.thumbnails),
+            Favorites("Video 2", "Description 2", R.drawable.thumbnails),
             // Add more favorite videos here with their respective thumbnail resource IDs
         )
 
