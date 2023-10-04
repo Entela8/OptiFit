@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">OptiFIt</string>
+    <string name="optifit">OptiFit</string>
+    <string name="favoris">Favoris</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="categories">Categories</string>
 </resources>

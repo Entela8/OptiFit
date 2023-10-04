@@ -15,7 +15,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.recyclerview.widget.RecyclerView
+import com.example.optifit.adapter.FavoritesAdapter
 import com.example.optifit.ui.theme.OptiFItTheme
+
 
 class MainActivity : ComponentActivity() {
 
@@ -23,21 +26,13 @@ class MainActivity : ComponentActivity() {
     lateinit var listAdapter: ArrayAdapter<String>
     lateinit var workoutsList: ArrayList<String>
     lateinit var searchView: SearchView
-    val listView = findViewById<ListView>(R.id.idLVWorkouts)
+    val listView by lazy { findViewById<ListView>(R.id.idLVWorkouts) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            OptiFItTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
-        }
+
+        // Set the content view before accessing UI elements
+        setContentView(R.layout.activity_main)
 
         workouts = findViewById(R.id.idLVWorkouts)
         searchView = findViewById(R.id.searchWorkouts)
@@ -60,7 +55,7 @@ class MainActivity : ComponentActivity() {
         workoutsList.add("Pilates")
         workoutsList.add("CrossFit")
 
-        listAdapter = ArrayAdapter<String>(
+        listAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
             workoutsList
@@ -77,9 +72,21 @@ class MainActivity : ComponentActivity() {
             false
         }
 
+        val favoritesRecyclerView = findViewById<RecyclerView>(R.id.favoritesRecyclerView)
+
+        // Create instances of Favorite videos with titles, descriptions, and thumbnail resource IDs
+        val favoriteVideos = mutableListOf<Favorites>(
+            Favorites("Video 1", "Description 1", R.drawable.thumbnails, R.drawable.thumbnails),
+            Favorites("Video 2", "Description 2", R.drawable.thumbnails, R.drawable.thumbnails),
+            // Add more favorite videos here with their respective thumbnail resource IDs
+        )
+
+        // Initialize and set the adapter (assuming you have a RecyclerView)
+        val adapter = FavoritesAdapter(favoriteVideos)
+        favoritesRecyclerView.adapter = adapter
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-
                 if (workoutsList.contains(query)) {
                     listAdapter.filter.filter(query)
                 } else {
@@ -94,6 +101,18 @@ class MainActivity : ComponentActivity() {
                 return false
             }
         })
+
+        setContent {
+            OptiFItTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Greeting("Android")
+                }
+            }
+        }
     }
 }
 
