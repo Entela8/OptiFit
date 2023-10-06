@@ -86,6 +86,8 @@ class MainActivity : ComponentActivity() {
         val adapter = FavoritesAdapter(favoriteVideos)
         favoritesRecyclerView.adapter = adapter
 
+        val categoriesRecyclerView = findViewById<RecyclerView>(R.id.categoriesRecyclerView)
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (workoutsList.contains(query)) {
@@ -102,18 +104,6 @@ class MainActivity : ComponentActivity() {
                 return false
             }
         })
-
-        setContent {
-            OptiFItTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
-        }
     }
 }
 

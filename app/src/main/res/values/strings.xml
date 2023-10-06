@@ -4,4 +4,8 @@
     <string name="favoris">Favoris</string>
     <string name="thumbnail">Thumbnail</string>
     <string name="categories">Categories</string>
+    <string name="home">Home</string>
+    <string name="Library">Categories</string>
+    <string name="Favorites">Libraries</string>
+    <string name="settings">Settings</string>
 </resources>
