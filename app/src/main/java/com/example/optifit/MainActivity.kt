@@ -1,24 +1,28 @@
-package com.example.optifit
-
+import android.net.Uri
 import android.os.Bundle
+import android.util.JsonReader
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.FavoritesAdapter
 import com.example.optifit.ui.theme.OptiFItTheme
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import parseCategory
+import java.io.InputStreamReader
+import com.example.optifit.Category
+import com.example.optifit.CategoryAdapter
+import com.example.optifit.Favorites
+import com.example.optifit.R
+import java.io.File
 
 
 class MainActivity : ComponentActivity() {
@@ -27,12 +31,11 @@ class MainActivity : ComponentActivity() {
     lateinit var listAdapter: ArrayAdapter<String>
     lateinit var workoutsList: ArrayList<String>
     lateinit var searchView: SearchView
+    private val categoryList = mutableListOf<Category>()
     val listView by lazy { findViewById<ListView>(R.id.idLVWorkouts) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Set the content view before accessing UI elements
         setContentView(R.layout.activity_main)
 
         workouts = findViewById(R.id.idLVWorkouts)
@@ -86,7 +89,48 @@ class MainActivity : ComponentActivity() {
         val adapter = FavoritesAdapter(favoriteVideos)
         favoritesRecyclerView.adapter = adapter
 
-        val categoriesRecyclerView = findViewById<RecyclerView>(R.id.categoriesRecyclerView)
+        val categoryTitle = listOf(
+            "abdos.jpg", "biceps.jpg", "pectoraux.jpg", "dos.jpg", "jambes.jpg",
+            "fessiers.jpg", "épaules.jpg", "triceps.jpg", "calisthénie.jpg",
+            "musculation.jpg", "yoga.jpg", "boxe.jpg", "étirements.jpg", "pilates.jpg", "crossfit.jpg"
+        )
+
+        val categoryRecyclerView = findViewById<RecyclerView>(R.id.categoriesRecyclerView)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        categoryRecyclerView.layoutManager = layoutManager
+
+        // Initialize the com.example.optifit.CategoryAdapter with an empty list (you'll update it later)
+        val categoryAdapter = CategoryAdapter(mutableListOf())
+        categoryRecyclerView.adapter = categoryAdapter
+
+
+        val imgFile = File("/res/drawable/abdos.jpg")
+        if (imgFile.exists()) {
+            val myImage = ImageView(this)
+            myImage.setImageURI(Uri.fromFile(imgFile))
+        }
+
+
+        /*
+        try {
+            val inputStream = resources.openRawResource(R.raw.categories)
+            val jsonReader = JsonReader(InputStreamReader(inputStream, "UTF-8"))
+
+            jsonReader.beginArray()
+            while (jsonReader.hasNext()) {
+                val category = parseCategory(jsonReader)
+                categoryList.add(com.example.optifit.Category(category.title, category.imageResId, category.videoUrls))
+            }
+            jsonReader.endArray()
+
+            // Create a new adapter with the updated data and set it to the RecyclerView
+            val categoryAdapter = CategoryAdapter(categoryList)
+            categoryRecyclerView.adapter = categoryAdapter
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } */
+
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
