@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Abdos",
+    "imageResName": "abdos.jpg",
+    "videoUrls": ["https://youtu.be/BdhqubW1GJE?feature=shared", "https://youtu.be/5L_7SeXwXf8?feature=shared", "https://youtu.be/f-uaxS1s6b4?feature=shared", "https://youtu.be/8PwoytUU06g?feature=shared", "https://youtu.be/uroOF4PQ4P8?feature=shared"]
+  },
+  {
+    "title": "Biceps",
+    "imageResName": "biceps.jpg",
+    "videoUrls": [
+      "https://youtu.be/z0eulElSJK0?feature=shared",
+      "https://youtu.be/snA6ls2kG3U?feature=shared",
+      "https://youtu.be/JyV7mUFSpXs?feature=shared",
+      "https://youtu.be/t931CAMFPvE?feature=shared",
+      "https://youtu.be/WNnkS_q4p_w?feature"
+    ]
+  }
+]
