@@ -10,4 +10,19 @@
     <string name="settings">Settings</string>
     <string name="category_image">category_image</string>
     <string name="cover">cover</string>
+    <string name="abdos">Abdos</string>
+    <string name="biceps">Biceps</string>
+    <string name="epaules">Epaules</string>
+    <string name="fessiers">Fessiers</string>
+    <string name="jambes">Jambes</string>
+    <string name="pectoraux">Pectoraux</string>
+    <string name="tricpes">Triceps</string>
+    <string name="boxe">Boxe</string>
+    <string name="calisthenie">Calisthenie</string>
+    <string name="crossfit">Crossfit</string>
+    <string name="etirements">Etirements</string>
+    <string name="musculation">Musculation</string>
+    <string name="yoga">Yoga</string>
+    <string name="pilates">Pilates</string>
+
 </resources>
