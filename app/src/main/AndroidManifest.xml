@@ -16,6 +16,9 @@
         android:theme="@style/Theme.OptiFIt"
         tools:targetApi="31">
 
+      <!--  gr-3-8
+        4cN-->
+
         <activity
             android:name="MainActivity"
             android:exported="true"
