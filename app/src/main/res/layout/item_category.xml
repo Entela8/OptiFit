@@ -14,23 +14,37 @@
         app:cardCornerRadius="17dp"
         app:cardElevation="2dp">
 
-        <!-- Add an ImageView or other content here -->
-        <ImageView
-            android:id="@+id/item_image"
+        <!-- Add a FrameLayout containing an ImageView and a gradient overlay -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:importantForAccessibility="no"
-            android:contentDescription="@string/cover" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/item_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:importantForAccessibility="no"
+                android:contentDescription="@string/cover" />
+
+            <!-- Add a View with a gradient as a filter -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/item_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColorHint="@color/black"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:fontFamily="@font/sfprobold"
-            android:textColor="@android:color/black"
+            android:layout_marginBottom="5dp"
+            android:textColor="@android:color/white"
+            android:shadowColor="@color/black"
             android:layout_gravity="center_horizontal|bottom"
             android:gravity="center"/>
 

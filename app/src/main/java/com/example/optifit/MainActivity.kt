@@ -1,24 +1,21 @@
-import android.net.Uri
+package com.example.optifit
+
 import android.os.Bundle
-import android.util.JsonReader
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.FavoritesAdapter
 import com.example.optifit.ui.theme.OptiFItTheme
-import com.example.optifit.CategoryAdapter
-import com.example.optifit.CategoryData
-import com.example.optifit.Favorites
-import com.example.optifit.R
 
 class MainActivity : ComponentActivity() {
 
@@ -87,12 +84,12 @@ class MainActivity : ComponentActivity() {
         //CATEGORIES RECYCLER VIEW
         val myDataset = CategoryData().loadCategory()
         val categoryRecyclerView = findViewById<RecyclerView>(R.id.categoriesRecyclerView)
-        categoryRecyclerView.adapter = CategoryAdapter(this, myDataset)
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager = GridLayoutManager(this, 3) // Set spanCount to 3 for a grid with 3 items in each row
         categoryRecyclerView.layoutManager = layoutManager
-
+        categoryRecyclerView.adapter = CategoryAdapter(this, myDataset)
     }
 }
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {

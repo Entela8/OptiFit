@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.Drawable
 
 class CategoryAdapter(private val context: Context, private val dataset: List<Category>) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
@@ -33,10 +37,5 @@ class CategoryAdapter(private val context: Context, private val dataset: List<Ca
         val item = dataset[position]
         holder.textView.text = context.resources.getString(item.stringResourceId)
         holder.imageView.setImageResource(item.imageResId)
-        Log.d("CategoryAdapter", "Item at position $position loaded: ${item.stringResourceId}")
     }
-
-
-
-
 }
