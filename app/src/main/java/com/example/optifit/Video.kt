@@ -5,3 +5,4 @@ data class Video(
     val youtubeUrl: String,
     val thumbnailUrl: String
 )
+

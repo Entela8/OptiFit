@@ -3,6 +3,7 @@ package com.example.optifit
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.SearchView
@@ -87,6 +88,18 @@ class MainActivity : ComponentActivity() {
         val layoutManager = GridLayoutManager(this, 3) // Set spanCount to 3 for a grid with 3 items in each row
         categoryRecyclerView.layoutManager = layoutManager
         categoryRecyclerView.adapter = CategoryAdapter(this, myDataset)
+
+
+        //BACK BUTTON
+        val backArrow = findViewById<ImageView>(R.id.backArrow)
+
+        // Set an OnClickListener for the ImageView
+        backArrow.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                // Handle the back button click event here
+                finish() // Finish the current activity to go back
+            }
+        })
     }
 }
 
