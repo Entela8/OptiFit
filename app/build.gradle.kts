@@ -83,8 +83,8 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.71828")
 
     implementation ("com.google.apis:google-api-services-youtube:v3-rev205-1.31.3")
+    implementation(files("libs/google-api-services-youtube-v3-rev179-1.22.0.jar"))
 
-    implementation ("com.google.api-client:google-api-client:1.31.3")
     implementation ("com.google.oauth-client:google-oauth-client-jetty:1.34.1")
 
     implementation ("androidx.recyclerview:recyclerview:1.3.1")
