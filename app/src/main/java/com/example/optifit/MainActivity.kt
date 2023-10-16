@@ -1,22 +1,21 @@
 package com.example.optifit
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.ListView
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.FavoritesAdapter
-import com.example.optifit.ui.theme.OptiFItTheme
+import com.example.optifit.ui.theme.OptiFitTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -29,6 +28,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         workouts = findViewById(R.id.idLVWorkouts)
         searchView = findViewById(R.id.searchWorkouts)
 
@@ -81,7 +81,6 @@ class MainActivity : ComponentActivity() {
         favoritesRecyclerView.adapter = adapter
 
 
-
         //CATEGORIES RECYCLER VIEW
         val myDataset = CategoryData().loadCategory()
         val categoryRecyclerView = findViewById<RecyclerView>(R.id.categoriesRecyclerView)
@@ -90,16 +89,15 @@ class MainActivity : ComponentActivity() {
         categoryRecyclerView.adapter = CategoryAdapter(this, myDataset)
 
 
-        //BACK BUTTON
-        val backArrow = findViewById<ImageView>(R.id.backArrow)
+        //CATEGORY TRANSITION
+        val categoriesTitle = findViewById<TextView>(R.id.categoriesTitle)
 
-        // Set an OnClickListener for the ImageView
-        backArrow.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                // Handle the back button click event here
-                finish() // Finish the current activity to go back
-            }
-        })
+        // Set an OnClickListener for the "Categories" title
+        categoriesTitle.setOnClickListener {
+            // When clicked, navigate to CategoriesActivity
+            val intent = Intent(this, CategoriesActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
 
@@ -115,7 +113,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    OptiFItTheme {
+    OptiFitTheme {
         Greeting("Android")
     }
 }

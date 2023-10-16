@@ -29,9 +29,10 @@
 
         <include
             layout="@layout/back"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
             android:layout_below="@+id/otherViews"
+            android:layout_centerVertical="true"
             />
 
         <TextView
@@ -53,6 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp">
+
+
 
     </androidx.recyclerview.widget.RecyclerView>
 

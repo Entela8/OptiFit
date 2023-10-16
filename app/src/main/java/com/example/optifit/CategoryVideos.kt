@@ -1,130 +1,71 @@
 package com.example.optifit
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.youtube.player.YouTubeBaseActivity
-import com.google.android.youtube.player.YouTubeInitializationResult
-import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerView
-import com.google.android.youtube.player.YouTubeBaseActivity
-import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerView
-import com.google.android.youtube.player.YouTubeInitializationResult
-import com.google.android.youtube.player.internal.t
-const val YOUTUBE_VIDEO_ID = "Evfe8GEn33w"
-const val YOUTUBE_PLAYLIST = "UCU3jy5C8MB-JvSw_86SFV2w"
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.google.android.youtube.player.YouTubeStandalonePlayer
+import android.content.Context
+import com.google.api.client.auth.oauth2.Credential
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp
+import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
+import com.google.api.client.googleapis.json.GoogleJsonResponseException
+import com.google.api.client.http.InputStreamContent
+import com.google.api.client.http.javanet.NetHttpTransport
+import com.google.api.client.json.JsonFactory
+import com.google.api.client.json.gson.GsonFactory
+import com.google.api.services.youtube.YouTube
+import java.io.BufferedInputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.IOException
+import java.io.InputStreamReader
+import java.security.GeneralSecurityException
+import java.util.Arrays
 
-        YouTubeStandalonePlayer.initialize(this, "AIzaSyAFovs1LkXXl_DV_iv5iIOdW1lL6cVoz1c")
+object CategoryVideos {
+    private val CLIENT_SECRETS = R.raw.client_secret
+    private val SCOPES = Arrays.asList("https://www.googleapis.com/auth/youtube.force-ssl")
+    private const val APPLICATION_NAME = "OptiFit"
+    private val JSON_FACTORY: JsonFactory = GsonFactory()
 
-class CategoryVideos : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
-        private val TAG = "YoutubeActivity"
+    @Throws(IOException::class)
+    fun authorize(httpTransport: NetHttpTransport, context: Context?): Credential {
+        // Load client secrets from resources
+        val clientSecretsStream = context?.resources?.openRawResource(CLIENT_SECRETS)
+        val clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, InputStreamReader(clientSecretsStream))
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-
-
-            val layout = layoutInflater.inflate(R.layout.activity_youtube, null) as ConstraintLayout
-            setContentView(layout)
-
-            val playerView = YouTubePlayerView(this)
-            playerView.layoutParams = ConstraintLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            layout.addView(playerView)
-
-            playerView.initialize(getString(R.string.GOOGLE_API_KEY), this)
-        }
-
-        override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?,
-                                             wasRestored: Boolean) {
-            Log.d(TAG, "onInitializationSuccess: provider is ${provider?.javaClass}")
-            Log.d(TAG, "onInitializationSuccess: youTubePlayer is ${youTubePlayer?.javaClass}")
-            Toast.makeText(this, "Initialized Youtube Player successfully", Toast.LENGTH_SHORT).show()
-
-            youTubePlayer?.setPlayerStateChangeListener(playerStateChangeListener)
-            youTubePlayer?.setPlaybackEventListener(playbackEventListener)
-
-            if (!wasRestored) {
-                youTubePlayer?.cueVideo(YOUTUBE_VIDEO_ID)
-            }
-        }
-
-        override fun onInitializationFailure(provider: YouTubePlayer.Provider?,
-                                             youTubeInitializationResult: YouTubeInitializationResult?) {
-            val REQUEST_CODE = 0
-
-            if (youTubeInitializationResult?.isUserRecoverableError == true) {
-                youTubeInitializationResult.getErrorDialog(this, REQUEST_CODE).show()
-            } else {
-                val errorMessage = "There was an error initializing the YoutubePlayer ($youTubeInitializationResult)"
-                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
-            }
-        }
-
-        private val playbackEventListener = object: YouTubePlayer.PlaybackEventListener {
-            override fun onSeekTo(p0: Int) {
-            }
-
-            override fun onBuffering(p0: Boolean) {
-            }
-
-            override fun onPlaying() {
-                Toast.makeText(this@YoutubeActivity, "Good, video is playing ok", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onStopped() {
-                Toast.makeText(this@YoutubeActivity, "Video has stopped", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onPaused() {
-                Toast.makeText(this@YoutubeActivity, "Video has paused", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        private val playerStateChangeListener = object: YouTubePlayer.PlayerStateChangeListener {
-            override fun onAdStarted() {
-                Toast.makeText(this@YoutubeActivity, "Click Ad now, make the video creator rich!", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onLoading() {
-            }
-
-            override fun onVideoStarted() {
-                Toast.makeText(this@YoutubeActivity, "Video has started", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onLoaded(p0: String?) {
-            }
-
-            override fun onVideoEnded() {
-                Toast.makeText(this@YoutubeActivity, "Congratulations! You've completed another video.", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onError(p0: YouTubePlayer.ErrorReason?) {
-            }
-        }
+        // Build flow and trigger user authorization request.
+        val flow = GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES).build()
+        val credential = AuthorizationCodeInstalledApp(flow, LocalServerReceiver()).authorize("user")
+        return credential
     }
 
-    override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, player: YouTubePlayer?, wasRestored: Boolean) {
-        if (!wasRestored) {
-            player?.loadVideo("your_video_id_here")
-        }
+    @Throws(GeneralSecurityException::class, IOException::class)
+    fun getService(context: Context?): YouTube {
+        val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
+        val credential = authorize(httpTransport, context)
+
+        return YouTube.Builder(httpTransport, JSON_FACTORY, credential)
+            .setApplicationName(APPLICATION_NAME)
+            .build()
     }
 
-    override fun onInitializationFailure(provider: YouTubePlayer.Provider?, errorReason: YouTubeInitializationResult?) {
-        // Handle initialization failure
-    }
+    @Throws(GeneralSecurityException::class, IOException::class, GoogleJsonResponseException::class)
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val context: Context? = null // Replace with your actual Android context if available
+        val youtubeService = CategoryVideos.getService(context)
 
-    private fun readJSONFromResources(): String {
-        // Code to read the JSON data from resources (res/raw) or API
-        // Return the JSON data as a string
-    }
+        // TODO: For this request to work, you must replace "YOUR_FILE"
+        // with a pointer to the actual file you are uploading.
+        // The maximum file size for this operation is 2097152.
+        val mediaFile = File("YOUR_FILE")
+        val mediaContent = InputStreamContent("application/octet-stream", BufferedInputStream(FileInputStream(mediaFile)))
+        mediaContent.length = mediaFile.length()
 
+        // Define and execute the API request
+        val request = youtubeService.thumbnails()
+            .set("https://youtu.be/BdhqubW1GJE?feature=shared", mediaContent)
+        val response = request.setPrettyPrint(true).execute()
+        println(response)
+    }
 }
