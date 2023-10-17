@@ -10,11 +10,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven("https://jitpack.io")
     }
 }
 
-
-rootProject.name = "OptiFit"
+rootProject.name = "OptiFIt"
 include(":app")
- 

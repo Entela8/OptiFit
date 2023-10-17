@@ -2,6 +2,7 @@ package com.example.optifit
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -87,7 +88,6 @@ class MainActivity : ComponentActivity() {
         val layoutManager = GridLayoutManager(this, 3) // Set spanCount to 3 for a grid with 3 items in each row
         categoryRecyclerView.layoutManager = layoutManager
         categoryRecyclerView.adapter = CategoryAdapter(this, myDataset)
-
 
         //CATEGORY TRANSITION
         val categoriesTitle = findViewById<TextView>(R.id.categoriesTitle)
