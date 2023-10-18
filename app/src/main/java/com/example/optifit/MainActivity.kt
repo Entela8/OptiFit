@@ -85,16 +85,15 @@ class MainActivity : ComponentActivity() {
         //CATEGORIES RECYCLER VIEW
         val myDataset = CategoryData().loadCategory()
         val categoryRecyclerView = findViewById<RecyclerView>(R.id.categoriesRecyclerView)
-        val layoutManager = GridLayoutManager(this, 3) // Set spanCount to 3 for a grid with 3 items in each row
+        val layoutManager = GridLayoutManager(this, 2)
         categoryRecyclerView.layoutManager = layoutManager
         categoryRecyclerView.adapter = CategoryAdapter(this, myDataset)
 
         //CATEGORY TRANSITION
         val categoriesTitle = findViewById<TextView>(R.id.categoriesTitle)
 
-        // Set an OnClickListener for the "Categories" title
+        // OnClickListener  "Categories" title
         categoriesTitle.setOnClickListener {
-            // When clicked, navigate to CategoriesActivity
             val intent = Intent(this, CategoriesActivity::class.java)
             startActivity(intent)
         }
