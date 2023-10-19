@@ -9,7 +9,6 @@ import androidx.activity.ComponentActivity
 
 class Video : ComponentActivity() {
 
-
     private var webView: WebView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

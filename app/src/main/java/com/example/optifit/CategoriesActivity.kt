@@ -18,7 +18,6 @@ class CategoriesActivity : ComponentActivity() {
         // Set an OnClickListener for the ImageView
         backArrow.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-
                 finish()
             }
         })
