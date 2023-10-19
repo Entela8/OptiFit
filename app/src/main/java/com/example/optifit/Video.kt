@@ -5,6 +5,7 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 
 class Video : ComponentActivity() {
@@ -16,7 +17,6 @@ class Video : ComponentActivity() {
 
         //BACK BUTTON
         val backArrow = findViewById<ImageView>(R.id.backArrow)
-        // Set an OnClickListener for the ImageView
         backArrow.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
 
@@ -24,20 +24,37 @@ class Video : ComponentActivity() {
             }
         })
 
+        // Retrieve category title and video URLs from Intent
+        val categoryTitle = intent.getStringExtra("categoryTitle")
+        val videoUrls = intent.getStringArrayListExtra("videoUrls")
 
-        webView = findViewById<View>(R.id.webview) as WebView
-        webView!!.settings.javaScriptEnabled = true
+        // Set the category title in a TextView
+        val categoryTitleTextView = findViewById<TextView>(R.id.item_text)
+        categoryTitleTextView.text = categoryTitle
 
-        webView!!.webViewClient =
-            WebViewClient() // Pour ouvrir les URL dans la WebView plutôt que dans le navigateur externe
+        // Create HTML content to embed video links into the WebView
+        val htmlContent = buildHtmlContent(videoUrls)
 
+        // Initialize the WebView
+        webView = findViewById(R.id.videoWebView)
+        webView?.settings?.javaScriptEnabled = true
+        webView?.webViewClient = WebViewClient()
 
-        val iframe =
-            "<iframe src=\"https://www.youtube.com/embed/cTA-TvezdrU?si=vZcR358cRDsKr1kn\" width=\"100%\" height=\"100%\" style=\"border:none;\"></iframe>"
-        val mime = "text/html"
-        val encoding = "utf-8"
+        // Load the HTML content into the WebView
+        webView?.loadData(htmlContent, "text/html", "utf-8")
+    }
 
-        webView!!.loadData(iframe, mime, encoding)
+    // Function to build HTML content with embedded video links
+    private fun buildHtmlContent(videoUrls: List<String>?): String {
+        val htmlBuilder = StringBuilder()
+        htmlBuilder.append("<html><body>")
+        if (videoUrls != null) {
+            for (videoUrl in videoUrls) {
+                htmlBuilder.append("<iframe width=\"100%\" height=\"300\" src=\"$videoUrl\"></iframe>")
+            }
+        }
+        htmlBuilder.append("</body></html>")
+        return htmlBuilder.toString()
     }
 }
 

@@ -50,17 +50,11 @@
 
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categoryVideos"
+    <WebView
+        android:id="@+id/videoWebView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <WebView
-        android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_weight="1"
+        android:scrollbars="none" />
 
 </LinearLayout>
