@@ -69,15 +69,10 @@ class MainActivity : ComponentActivity() {
         }
 
         val favoritesRecyclerView = findViewById<RecyclerView>(R.id.favoritesRecyclerView)
-
-        // Create instances of Favorite videos with titles, descriptions, and thumbnail resource IDs
         val favoriteVideos = mutableListOf<Favorites>(
             Favorites("Video 1", "Description 1", R.drawable.thumbnails),
             Favorites("Video 2", "Description 2", R.drawable.thumbnails),
-            // Add more favorite videos here with their respective thumbnail resource IDs
         )
-
-        // Initialize and set the adapter (assuming you have a RecyclerView)
         val adapter = FavoritesAdapter(favoriteVideos)
         favoritesRecyclerView.adapter = adapter
 
