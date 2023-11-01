@@ -1,4 +1,4 @@
-package com.example.optifit
+package com.example.optifit.models
 
 data class Favorites(
     val title: String,

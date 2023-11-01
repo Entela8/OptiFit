@@ -7,6 +7,7 @@ import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import com.example.optifit.R
 
 class Video : ComponentActivity() {
 
@@ -29,7 +30,7 @@ class Video : ComponentActivity() {
         val videoUrls = intent.getStringArrayListExtra("videoUrls")
 
         // Set the category title in a TextView
-        val categoryTitleTextView = findViewById<TextView>(R.id.item_text)
+        val categoryTitleTextView = findViewById<TextView>(R.id.categoryTitleTextView)
         categoryTitleTextView.text = categoryTitle
 
         // Create HTML content to embed video links into the WebView
@@ -38,6 +39,11 @@ class Video : ComponentActivity() {
         // Initialize the WebView
         webView = findViewById(R.id.videoWebView)
         webView?.settings?.javaScriptEnabled = true
+        webView?.settings?.domStorageEnabled = true
+        webView?.settings?.mediaPlaybackRequiresUserGesture = false
+        webView?.settings?.allowContentAccess = true
+        webView?.settings?.allowFileAccess = true
+
         webView?.webViewClient = WebViewClient()
 
         // Load the HTML content into the WebView

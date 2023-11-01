@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.optifit.Favorites
+import com.example.optifit.models.Favorites
 import com.example.optifit.R
 
 class FavoritesAdapter(private val favoriteVideos: List<Favorites>) :

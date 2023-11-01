@@ -1,4 +1,4 @@
-package com.example.optifit
+package com.example.optifit.models
 
 import android.os.Bundle
 import android.widget.ImageView
