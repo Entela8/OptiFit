@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.SearchView
 import android.widget.TextView
@@ -84,13 +85,11 @@ class MainActivity : ComponentActivity() {
 
 
         //CATEGORIES RECYCLER VIEW
-        // Get the category data and set up the categoryRecyclerView
-        // Load category data
         val myDataset = CategoryData().loadCategory()
         val categoryRecyclerView = findViewById<RecyclerView>(R.id.categoriesRecyclerView)
         val layoutManager = GridLayoutManager(this, 2)
         categoryRecyclerView.layoutManager = layoutManager
-        // Load and parse the JSON data from your source
+        // Load and parse the JSON data
         val jsonString = try {
             val inputStream = resources.openRawResource(R.raw.categories)
             val size = inputStream.available()
@@ -110,11 +109,9 @@ class MainActivity : ComponentActivity() {
             category.videoUrls = loadCategoryVideoUrlsFromJson(json, category.categoryTitle)
         }
 
-        // Create and set the CategoryAdapter with item click listener
         val categoryAdapter = CategoryAdapter(this, myDataset)
         categoryAdapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener {
             override fun onItemClick(category: Category) {
-                // Handle the item click, e.g., open CategoryDetailsActivity
                 val intent = Intent(this@MainActivity, Video::class.java).apply {
                     putExtra("categoryTitle", category.categoryTitle)
                     putStringArrayListExtra("videoUrls", ArrayList(category.videoUrls ?: emptyList()))
@@ -129,9 +126,16 @@ class MainActivity : ComponentActivity() {
         //CATEGORY TRANSITION
         val categoriesTitle = findViewById<TextView>(R.id.categoriesTitle)
 
-        // OnClickListener  "Categories" title
         categoriesTitle.setOnClickListener {
             val intent = Intent(this, CategoriesActivity::class.java)
+            startActivity(intent)
+        }
+
+        //PROFILE TRANSITION
+        val profileTitle = findViewById<ImageView>(R.id.profilePicture)
+
+        profileTitle.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
     }
