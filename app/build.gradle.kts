@@ -63,6 +63,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation ("com.google.code.gson:gson:2.8.9")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation("com.android.volley:volley:1.2.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.recyclerview:recyclerview:1.3.1")
