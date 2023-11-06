@@ -121,7 +121,8 @@ class ProfileActivity : ComponentActivity() {
         changeImage.launch(pickImg)
     }
 
-    fun onSaveClicked(view: View) {
+    fun onSaveClicked()
+    {
         // Retrieve user input from EditText fields
         val name = editName.text.toString()
         val age = editAge.text.toString()

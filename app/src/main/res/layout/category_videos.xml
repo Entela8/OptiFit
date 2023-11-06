@@ -50,27 +50,17 @@
     </RelativeLayout>
 
     <!-- Add WebView and favorite button for each video URL -->
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/webViewLayout"
-        tools:ignore="WebViewLayout">
+        android:layout_height="match_parent">
 
         <WebView
             android:id="@+id/videoWebView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:scrollbars="none">
         </WebView>
-
-        <Button
-            android:id="@+id/favoriteButton1"
-            android:layout_width="40dp"
-            android:layout_height="40dp">
-        </Button>
-
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

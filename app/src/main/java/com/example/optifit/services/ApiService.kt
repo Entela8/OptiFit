@@ -30,10 +30,4 @@ class ApiService (context: Context){
             })
         queue.add(stringRequest)
     }
-
-    fun getJSON(): JSONObject
-    {
-        return this.response
-    }
-
 }

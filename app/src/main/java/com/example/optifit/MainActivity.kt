@@ -19,9 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.CategoryAdapter
 import com.example.optifit.storage.ApiService
 import com.example.optifit.ui.theme.OptiFitTheme
-import org.json.JSONArray
 import org.json.JSONObject
-import java.io.IOException
 
 class MainActivity : ComponentActivity() {
 
@@ -81,8 +79,8 @@ class MainActivity : ComponentActivity() {
         }
 
         //FAVORITES
-        val favoritesRecyclerView = findViewById<RecyclerView>(R.id.favoritesRecyclerView)
-        /*
+        /*val favoritesRecyclerView = findViewById<RecyclerView>(R.id.favoritesRecyclerView)
+
         val favoriteVideos = mutableListOf<Favorites>(
             Favorites("Video 1", "Description 1", R.drawable.thumbnails),
             Favorites("Video 2", "Description 2", R.drawable.thumbnails),
@@ -95,12 +93,12 @@ class MainActivity : ComponentActivity() {
         val layoutManager = GridLayoutManager(this, 2)
         categoryRecyclerView.layoutManager = layoutManager
 
-        val apiService = ApiService(this);
+        val apiService = ApiService(this)
         apiService.get() { result ->
             val responseObj : JSONObject = result
             Log.d("JSON", responseObj.toString())
 
-            val categoryAdapter = CategoryAdapter(this, responseObj)
+            val categoryAdapter = CategoryAdapter(responseObj)
             categoryAdapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener {
                 override fun onItemClick(categoryName: String, category: JSONObject)
                 {

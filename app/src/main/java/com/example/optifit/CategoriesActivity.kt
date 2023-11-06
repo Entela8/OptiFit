@@ -35,7 +35,7 @@ class CategoriesActivity : ComponentActivity() {
             val responseObj : JSONObject = result
 
             // Create and set the CategoryAdapter with item click listener
-            val categoryAdapter = CategoryAdapter(this, responseObj)
+            val categoryAdapter = CategoryAdapter(responseObj)
             categoryAdapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener
             {
                 override fun onItemClick(categoryName: String, category: JSONObject)
