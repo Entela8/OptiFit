@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.CategoryAdapter
 import com.example.optifit.adapter.FavoritesAdapter
 import com.example.optifit.models.Favorites
-import com.example.optifit.storage.utility.ApiService
+import com.example.optifit.storage.ApiService
 import com.example.optifit.ui.theme.OptiFitTheme
 import org.json.JSONObject
 
@@ -82,12 +82,13 @@ class MainActivity : ComponentActivity() {
 
         //FAVORITES
         val favoritesRecyclerView = findViewById<RecyclerView>(R.id.favoritesRecyclerView)
+        /*
         val favoriteVideos = mutableListOf<Favorites>(
             Favorites("Video 1", "Description 1", R.drawable.thumbnails),
             Favorites("Video 2", "Description 2", R.drawable.thumbnails),
         )
         val adapter = FavoritesAdapter(favoriteVideos)
-        favoritesRecyclerView.adapter = adapter
+        favoritesRecyclerView.adapter = adapter */
 
         //CATEGORIES RECYCLER VIEW
         val categoryRecyclerView = findViewById<RecyclerView>(R.id.categoriesRecyclerView)

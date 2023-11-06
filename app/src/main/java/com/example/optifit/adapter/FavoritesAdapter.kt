@@ -1,34 +1,39 @@
 package com.example.optifit.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.optifit.models.Favorites
 import com.example.optifit.R
+import com.example.optifit.models.Favorites
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
-class FavoritesAdapter(private val favoriteVideos: List<Favorites>) :
-    RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
+class FavoritesAdapter(context: Context) {
+    private val sharedPreferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
+    private val gson = Gson()
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val videoThumbnail: ImageView = itemView.findViewById(R.id.videoThumbnail)
+    fun getFavoriteVideos(): List<Favorites> {
+        val favoritesJson = sharedPreferences.getString("favoriteVideos", "[]")
+        return gson.fromJson(favoritesJson, object : TypeToken<List<Favorites>>() {}.type)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_favorite_videos, parent, false)
-        return ViewHolder(view)
+    fun addFavoriteVideo(video: Favorites) {
+        val currentFavorites = getFavoriteVideos().toMutableList()
+        currentFavorites.add(video)
+        saveFavorites(currentFavorites)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val video = favoriteVideos[position]
-
-        // Set video thumbnail and other information here
-        holder.videoThumbnail.setImageResource(video.thumbnailResId)
+    fun removeFavoriteVideo(video: Favorites) {
+        val currentFavorites = getFavoriteVideos().toMutableList()
+        currentFavorites.remove(video)
+        saveFavorites(currentFavorites)
     }
 
-    override fun getItemCount(): Int {
-        return favoriteVideos.size
+    private fun saveFavorites(favorites: List<Favorites>) {
+        val favoritesJson = gson.toJson(favorites)
+        sharedPreferences.edit().putString("favoriteVideos", favoritesJson).apply()
     }
 }

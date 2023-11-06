@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.example.optifit.R
+import com.example.optifit.adapter.FavoritesAdapter
+import com.example.optifit.models.Favorites
 
 class Video : ComponentActivity() {
 
@@ -48,6 +52,18 @@ class Video : ComponentActivity() {
 
         // Load the HTML content into the WebView
         webView?.loadData(htmlContent, "text/html", "utf-8")
+
+        //Favorite button
+        val favoritesManager = FavoritesAdapter(this)
+        val favoriteButton = findViewById<Button>(R.id.favoriteButton)
+
+        favoriteButton.setOnClickListener {
+            val videoUrl = "https://www.youtube.com/embed/your_video_id" // Get the video URL
+            val favoriteVideo = Favorites(videoUrl)
+            favoritesManager.addFavoriteVideo(favoriteVideo)
+            Toast.makeText(this, "Video ajouté à les favoris!", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     // Function to build HTML content with embedded video links

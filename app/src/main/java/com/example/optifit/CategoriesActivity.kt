@@ -8,7 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.CategoryAdapter
-import com.example.optifit.storage.utility.ApiService
+import com.example.optifit.storage.ApiService
 import org.json.JSONObject
 
 

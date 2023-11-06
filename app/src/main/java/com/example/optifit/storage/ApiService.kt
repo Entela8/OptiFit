@@ -1,4 +1,4 @@
-package com.example.optifit.storage.utility
+package com.example.optifit.storage
 
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -22,8 +22,6 @@ class ApiService (context: Context){
         val stringRequest = StringRequest(
             Request.Method.GET, URL,
             { Sresponse ->
-                // Display the first 500 characters of the response string.
-                // textView.text = "Response is: ${response.substring(0, 500)}"
                 response = JSONObject(Sresponse)
                 myCallback.invoke(response)
             },

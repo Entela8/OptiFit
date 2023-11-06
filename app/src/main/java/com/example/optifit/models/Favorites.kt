@@ -1,7 +1,4 @@
 package com.example.optifit.models
 
-data class Favorites(
-    val title: String,
-    val description: String,
-    val thumbnailResId: Int
-)
+data class Favorites
+    (val videoUrl: String)
