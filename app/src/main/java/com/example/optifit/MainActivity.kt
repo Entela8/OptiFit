@@ -1,8 +1,6 @@
 package com.example.optifit
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,8 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.CategoryAdapter
@@ -77,6 +73,14 @@ class MainActivity : ComponentActivity() {
             false
         }
 
+        //PROFILE TRANSITION
+        val profile = findViewById<ImageView>(R.id.profilePicture)
+        profile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        //FAVORITES
         val favoritesRecyclerView = findViewById<RecyclerView>(R.id.favoritesRecyclerView)
         val favoriteVideos = mutableListOf<Favorites>(
             Favorites("Video 1", "Description 1", R.drawable.thumbnails),
@@ -94,7 +98,6 @@ class MainActivity : ComponentActivity() {
         apiService.get() { result ->
             val responseObj : JSONObject = result
             Log.d("JSON", responseObj.toString())
-
 
             val categoryAdapter = CategoryAdapter(this, responseObj)
             categoryAdapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener {
@@ -123,14 +126,6 @@ class MainActivity : ComponentActivity() {
 
         categoriesTitle.setOnClickListener {
             val intent = Intent(this, CategoriesActivity::class.java)
-            startActivity(intent)
-        }
-
-        //PROFILE TRANSITION
-        val profileTitle = findViewById<ImageView>(R.id.profilePicture)
-
-        profileTitle.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
     }

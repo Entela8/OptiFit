@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -32,11 +33,8 @@ class ProfileActivity : ComponentActivity() {
     private lateinit var profilePhotoImageView: ImageView
     private var selectedProfilePhotoUri: Uri? = null
 
-    private val IMAGE_CHOOSE = 1000
     private val PERMISSION_CODE = 1001
-    private val REQUEST_CODE = 13
     private val FILE_NAME = "profile_photo.jpg"
-    private var filePhoto: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,18 +76,6 @@ class ProfileActivity : ComponentActivity() {
                 }
             }
         }
-
-        val changeImage =
-            registerForActivityResult(
-                ActivityResultContracts.StartActivityForResult()
-            ) {
-                if (it.resultCode == Activity.RESULT_OK) {
-                    val data = it.data
-                    val imgUri = data?.data
-                    profilePhotoImageView.setImageURI(imgUri)
-                    selectedProfilePhotoUri = imgUri
-                }
-            }
         // Load the saved data from the JSON file
         loadProfileData()
     }
@@ -103,8 +89,18 @@ class ProfileActivity : ComponentActivity() {
                 val imgUri = data?.data
                 profilePhotoImageView.setImageURI(imgUri)
                 selectedProfilePhotoUri = imgUri
+                if (imgUri != null) {
+                    applyCircularMaskToImageView(profilePhotoImageView)
+                }
             }
         }
+
+    private fun applyCircularMaskToImageView(imageView: ImageView) {
+        val circularMask = ContextCompat.getDrawable(this, R.drawable.circular_mask)
+        val layers = LayerDrawable(arrayOf(circularMask, imageView.drawable))
+        imageView.setImageDrawable(layers)
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -136,10 +132,12 @@ class ProfileActivity : ComponentActivity() {
         userData.put(Profile.AGE, age)
         userData.put(Profile.DESCRIPTION, description)
 
-        // Check if a profile photo URI is available and save it
         if (selectedProfilePhotoUri != null) {
-            // Save the selected photo to the app's internal storage
             val photoFile = File(filesDir, FILE_NAME)
+            val sharedPreferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("profilePhotoUri", selectedProfilePhotoUri.toString())
+            editor.apply()
             try {
                 val inputStream = contentResolver.openInputStream(selectedProfilePhotoUri!!)
                 if (inputStream != null) {
@@ -155,7 +153,6 @@ class ProfileActivity : ComponentActivity() {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                // Handle any exceptions that may occur during file copying.
             }
         }
 

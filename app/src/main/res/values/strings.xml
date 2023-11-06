@@ -20,5 +20,6 @@
     <string name="yoga">Yoga</string>
     <string name="pilates">Pilates</string>
     <string name="profil">Profil</string>
+    <string name="profile_picture">Profile Picture</string>
 
 </resources>
