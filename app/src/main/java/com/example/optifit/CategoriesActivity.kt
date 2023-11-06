@@ -48,21 +48,16 @@ class CategoriesActivity : ComponentActivity() {
                         arrayList.add(videoUrl)
                     }
 
-                    // Now you can start the Video Activity with the category details
-                    val intent = Intent(this@CategoriesActivity, Video::class.java)
+                    val intent = Intent(this@CategoriesActivity, VideoActivity::class.java)
                     intent.putExtra("categoryTitle", categoryName)
                     intent.putStringArrayListExtra("videoUrls", arrayList)
                     startActivity(intent)
                 }
             })
-
             categoryRecyclerView.adapter = categoryAdapter
         }
-
-
     }
-
-    }
+}
 
 
 

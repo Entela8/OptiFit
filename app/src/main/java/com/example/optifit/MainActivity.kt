@@ -17,11 +17,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.CategoryAdapter
-import com.example.optifit.adapter.FavoritesAdapter
-import com.example.optifit.models.Favorites
 import com.example.optifit.storage.ApiService
 import com.example.optifit.ui.theme.OptiFitTheme
+import org.json.JSONArray
 import org.json.JSONObject
+import java.io.IOException
 
 class MainActivity : ComponentActivity() {
 
@@ -112,7 +112,7 @@ class MainActivity : ComponentActivity() {
                         arrayList.add(videoUrl)
                     }
 
-                    val intent = Intent(this@MainActivity, Video::class.java).apply {
+                    val intent = Intent(this@MainActivity, VideoActivity::class.java).apply {
                         putExtra("categoryTitle", categoryName)
                         putStringArrayListExtra("videoUrls", arrayList)
                     }
@@ -120,6 +120,14 @@ class MainActivity : ComponentActivity() {
                 }
             })
             categoryRecyclerView.adapter = categoryAdapter
+        }
+
+        //FAVORIS TRANSITION
+        val favoriteVideos = findViewById<TextView>(R.id.Favoris)
+
+        favoriteVideos.setOnClickListener {
+            val intent = Intent(this, FavoritesActivity::class.java)
+            startActivity(intent)
         }
 
         //CATEGORY TRANSITION
