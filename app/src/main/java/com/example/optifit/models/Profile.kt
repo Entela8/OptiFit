@@ -1,7 +1,5 @@
 package com.example.optifit.models
 
-import android.widget.ImageView
-
 data class Profile(
     val id: Int,
     val photo: String,

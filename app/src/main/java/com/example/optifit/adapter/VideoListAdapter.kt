@@ -6,18 +6,15 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.R
-import com.example.optifit.storage.FavoritesService
+import com.example.optifit.services.FavoritesService
 import org.json.JSONArray
-import org.json.JSONObject
 
 class VideoListAdapter(private val context: Context, private val videoUrls: JSONArray, private val onFavorite : () -> Unit) :
     RecyclerView.Adapter<VideoListAdapter.VideoHolder>() {
 
-    class VideoHolder(private val view: View) : RecyclerView.ViewHolder(view)
+    class VideoHolder(view: View) : RecyclerView.ViewHolder(view)
     {
         val favoriteButton: ImageButton = view.findViewById(R.id.videoFavoriteButton)
         val videoWebView : WebView = view.findViewById(R.id.videoWebView)

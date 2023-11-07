@@ -14,7 +14,6 @@
         app:cardCornerRadius="17dp"
         app:cardElevation="2dp">
 
-        <!-- Add a FrameLayout containing an ImageView and a gradient overlay -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -27,7 +26,6 @@
                 android:importantForAccessibility="no"
                 android:contentDescription="@string/cover" />
 
-            <!-- Add a View with a gradient as a filter -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

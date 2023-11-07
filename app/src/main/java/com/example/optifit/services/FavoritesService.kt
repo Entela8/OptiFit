@@ -1,4 +1,4 @@
-package com.example.optifit.storage
+package com.example.optifit.services
 
 import android.content.Context
 import android.widget.Toast
@@ -21,10 +21,8 @@ class FavoritesService(private val context: Context){
         {
             val json = file.readText()
 
-            if (json.isNotEmpty())
-            {
-                val favorites = JSONObject(json)
-                return favorites
+            if (json.isNotEmpty()) {
+                return JSONObject(json)
             }
         }
 
@@ -47,8 +45,7 @@ class FavoritesService(private val context: Context){
          }
 
          val urlsArray = favorites.getJSONArray("urls")
-         val newUrl = videoUrl
-         urlsArray.put(newUrl)
+         urlsArray.put(videoUrl)
          val updatedJsonObj = JSONObject()
          updatedJsonObj.put("urls", urlsArray)
          favorites = updatedJsonObj
@@ -117,7 +114,7 @@ class FavoritesService(private val context: Context){
         return isElementExists
     }
 
-    fun saveAsFile(obj: JSONObject)
+    private fun saveAsFile(obj: JSONObject)
     {
         val file = File(context.filesDir, filename)
         val outputStream = FileOutputStream(file)

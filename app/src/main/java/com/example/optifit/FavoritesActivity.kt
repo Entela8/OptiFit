@@ -1,18 +1,14 @@
 package com.example.optifit
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.optifit.adapter.CategoryAdapter
 import com.example.optifit.adapter.VideoListAdapter
-import com.example.optifit.storage.FavoritesService
-import org.json.JSONArray
+import com.example.optifit.services.FavoritesService
 
 class FavoritesActivity : ComponentActivity()
 {

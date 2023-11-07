@@ -7,13 +7,12 @@
 
     <androidx.cardview.widget.CardView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:cardCornerRadius="17dp"
         app:cardElevation="2dp"
         app:cardBackgroundColor="@color/black">
 
-        <!-- Add an ImageView or other content here -->
         <WebView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

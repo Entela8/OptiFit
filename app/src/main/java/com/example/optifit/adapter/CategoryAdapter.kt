@@ -14,7 +14,7 @@ class CategoryAdapter(private val dataset: JSONObject) :
 
     private var onItemClickListener: OnItemClickListener? = null
 
-    class CategoryViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.item_text)
         val imageView: ImageView = view.findViewById(R.id.item_image)
     }
@@ -38,7 +38,6 @@ class CategoryAdapter(private val dataset: JSONObject) :
         val id = context.resources.getIdentifier(categoryName.lowercase(), "drawable", context.packageName)
         holder.imageView.setImageResource(id)
 
-        // Handle category item click
         holder.itemView.setOnClickListener {
             onItemClickListener?.onItemClick(categoryName, category)
         }

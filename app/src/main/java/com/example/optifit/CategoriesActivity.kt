@@ -2,13 +2,12 @@ package com.example.optifit
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.CategoryAdapter
-import com.example.optifit.storage.ApiService
+import com.example.optifit.services.ApiService
 import org.json.JSONObject
 
 
@@ -19,22 +18,17 @@ class CategoriesActivity : ComponentActivity() {
 
         // BACK BUTTON
         val backArrow = findViewById<ImageView>(R.id.backArrow)
-        backArrow.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                finish()
-            }
-        })
+        backArrow.setOnClickListener { finish() }
 
         // CATEGORIES RECYCLER VIEW
         val categoryRecyclerView = findViewById<RecyclerView>(R.id.categoriesRecyclerView)
         val layoutManager = GridLayoutManager(this, 2)
         categoryRecyclerView.layoutManager = layoutManager
 
-        val apiService = ApiService(this);
-        apiService.get() { result ->
+        val apiService = ApiService(this)
+        apiService.get { result ->
             val responseObj : JSONObject = result
 
-            // Create and set the CategoryAdapter with item click listener
             val categoryAdapter = CategoryAdapter(responseObj)
             categoryAdapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener
             {

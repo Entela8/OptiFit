@@ -42,11 +42,7 @@ class ProfileActivity : ComponentActivity() {
 
         // BACK BUTTON
         val backArrow = findViewById<ImageView>(R.id.backArrow)
-        backArrow.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                finish()
-            }
-        })
+        backArrow.setOnClickListener { finish() }
 
         editName = findViewById(R.id.editName)
         editAge = findViewById(R.id.editAge)

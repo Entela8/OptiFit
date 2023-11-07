@@ -2,8 +2,6 @@ package com.example.optifit
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -21,8 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.CategoryAdapter
 import com.example.optifit.adapter.FavoriteAdapter
-import com.example.optifit.storage.ApiService
-import com.example.optifit.storage.FavoritesService
+import com.example.optifit.services.ApiService
+import com.example.optifit.services.FavoritesService
 import com.example.optifit.ui.theme.OptiFitTheme
 import org.json.JSONObject
 
@@ -34,24 +32,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-/*
-        val OptiFit = findViewById<TextView>(R.id.optifitText)
 
-        val spannableString = SpannableString(text)
-
-        // Create ForegroundColorSpan for different parts of the text
-        val colorSpan1 = ForegroundColorSpan(Color.RED)
-        val colorSpan2 = ForegroundColorSpan(Color.GREEN)
-        val colorSpan3 = ForegroundColorSpan(Color.BLUE)
-
-        // Apply the color spans to the desired text range
-        spannableString.setSpan(colorSpan1, 0, 4, 0)  // Make "Multi" red
-        spannableString.setSpan(colorSpan2, 5, 10, 0) // Make "Color" green
-        spannableString.setSpan(colorSpan3, 11, 15, 0) // Make "Text" blue
-
-        // Set the SpannableString in the TextView
-        textView.text = spannableString
-*/
         searchView = findViewById(R.id.searchWorkouts)
 
         searchView.setOnSearchClickListener {
@@ -122,7 +103,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun refreshFavorites(){
+    private fun refreshFavorites(){
         val favoritesService = FavoritesService(this)
         val favoritesJsonObject = favoritesService.loadFavorites()
         val favoriteUrls = favoritesJsonObject.optJSONArray("urls")
@@ -136,7 +117,7 @@ class MainActivity : ComponentActivity() {
         val favoriteLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         favoritesRecyclerView.layoutManager = favoriteLayoutManager
 
-        val favoriteAdapter = favoriteUrls?.let { FavoriteAdapter(this, it) }
+        val favoriteAdapter = favoriteUrls?.let { FavoriteAdapter(it) }
         favoritesRecyclerView.adapter = favoriteAdapter
     }
 

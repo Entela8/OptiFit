@@ -1,4 +1,4 @@
-package com.example.optifit.storage
+package com.example.optifit.services
 
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley

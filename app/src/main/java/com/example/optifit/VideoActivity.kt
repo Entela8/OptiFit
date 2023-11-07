@@ -1,7 +1,6 @@
 package com.example.optifit
 
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.ComponentActivity
@@ -18,17 +17,10 @@ class VideoActivity : ComponentActivity()
 
         // BACK BUTTON
         val backArrow = findViewById<ImageView>(R.id.backArrow)
-        backArrow.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                finish()
-            }
-        })
+        backArrow.setOnClickListener { finish() }
 
-        // Retrieve category title and video URLs from Intent
         val categoryTitle = intent.getStringExtra("categoryTitle")
         val videoUrls = intent.getStringArrayListExtra("videoUrls")
-
-        // Set the category title in a TextView
         val categoryTitleTextView = findViewById<TextView>(R.id.categoryTitleTextView)
         categoryTitleTextView.text = categoryTitle
 

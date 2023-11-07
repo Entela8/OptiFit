@@ -1,6 +1,4 @@
 package com.example.optifit.adapter
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +7,11 @@ import android.webkit.WebViewClient
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.R
 import org.json.JSONArray
-import org.json.JSONObject
 
-class FavoriteAdapter(context: Context,  private val dataset: JSONArray) :
+class FavoriteAdapter(private val dataset: JSONArray) :
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
-    class FavoriteViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val webView: WebView = view.findViewById(R.id.favoriteWebView)
     }
 
