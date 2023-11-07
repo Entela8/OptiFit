@@ -49,26 +49,9 @@
 
     </RelativeLayout>
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoriteVideosRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <WebView
-            android:id="@+id/videoWebViewFavorites"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scrollbars="none">
-
-            <Button
-                android:id="@+id/favoriteButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:gravity="start"
-                android:background="@drawable/ic_favorites"
-                android:backgroundTint="@color/black">
-            </Button>
-
-        </WebView>
-    </ScrollView>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

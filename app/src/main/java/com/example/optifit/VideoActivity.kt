@@ -33,14 +33,9 @@ class VideoActivity : ComponentActivity()
         val categoryTitleTextView = findViewById<TextView>(R.id.categoryTitleTextView)
         categoryTitleTextView.text = categoryTitle
 
-        // Initialize the WebView and favorite buttons
-        /*if (videoUrls != null) {
-            for (i in 0 until videoUrls.size) {
-                addVideoViewAndFavoriteButton(videoUrls[i], i)
-            }
-        }*/
         // Create HTML content to embed video links into the WebView
         val htmlContent = buildHtmlContent(videoUrls)
+
 
         // Initialize the WebView
         webView = findViewById(R.id.videoWebView1)
@@ -67,11 +62,4 @@ class VideoActivity : ComponentActivity()
         htmlBuilder.append("</body></html>")
         return htmlBuilder.toString()
     }
-
-    private fun addToFavorites(videoUrl: String)
-    {
-        FavoritesService(this).saveFavorite(videoUrl)
-        Toast.makeText(this, "Video ajoutée aux favoris!", Toast.LENGTH_SHORT).show()
-    }
-
 }

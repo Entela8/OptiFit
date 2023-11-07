@@ -3,16 +3,17 @@ package com.example.optifit
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.ImageView
 import androidx.activity.ComponentActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.optifit.adapter.CategoryAdapter
+import com.example.optifit.adapter.VideoListAdapter
 import com.example.optifit.storage.FavoritesService
 import org.json.JSONArray
 
 class FavoritesActivity : ComponentActivity()
 {
-    private var webView: WebView? = null
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -27,26 +28,16 @@ class FavoritesActivity : ComponentActivity()
         })
 
         val favorites = FavoritesService(this).loadFavorites()
+        val videosRecyclerView = findViewById<RecyclerView>(R.id.favoriteVideosRecyclerView)
+        val layoutManager = GridLayoutManager(this, 1)
+        videosRecyclerView.layoutManager = layoutManager
 
         if (favorites.has("urls"))
         {
-            webView = findViewById(R.id.videoWebViewFavorites)
-            webView?.settings?.javaScriptEnabled = true
-            webView?.settings?.domStorageEnabled = true
-            webView?.settings?.mediaPlaybackRequiresUserGesture = false
-            webView?.settings?.allowContentAccess = true
-            webView?.settings?.allowFileAccess = true
-            webView?.webViewClient = WebViewClient()
-
-            val urlsArray = favorites.getJSONArray("urls")
-            val urlsList = jsonArrayToList(urlsArray)
-            val htmlContent = buildHtmlContent(urlsList)
-
-            webView?.loadData(htmlContent, "text/html", "utf-8")
+            Log.d("ON PASSE", "la dedans")
+            val favoriteVideoAdapter = VideoListAdapter(this, favorites.getJSONArray("urls"))
+            videosRecyclerView.adapter = favoriteVideoAdapter
         }
-
-        val fav = FavoritesService(this).loadFavorites()
-        Log.d("les favs", fav.toString())
     }
 
     fun jsonArrayToList(jsonArray: JSONArray): List<String>
@@ -58,20 +49,5 @@ class FavoritesActivity : ComponentActivity()
             list.add(jsonArray.getString(i))
         }
         return list
-    }
-
-    // Function to build HTML content with embedded video links
-    private fun buildHtmlContent(videoUrls: List<String>): String
-    {
-        val htmlBuilder = StringBuilder()
-        htmlBuilder.append("<html><body>")
-
-        for (videoUrl in videoUrls)
-        {
-            htmlBuilder.append("<iframe width=\"100%\" height=\"300\" src=\"$videoUrl\"></iframe>")
-        }
-
-        htmlBuilder.append("</body></html>")
-        return htmlBuilder.toString()
     }
 }
