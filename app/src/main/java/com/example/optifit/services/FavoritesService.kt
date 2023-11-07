@@ -46,17 +46,12 @@ class FavoritesService(private val context: Context){
              favorites = existingFav
          }
 
-         // Récupérer le tableau "urls"
          val urlsArray = favorites.getJSONArray("urls")
-        // Ajouter un nouvel élément à la fin du tableau
          val newUrl = videoUrl
          urlsArray.put(newUrl)
-        // Créer un nouvel objet JSON mis à jour
          val updatedJsonObj = JSONObject()
          updatedJsonObj.put("urls", urlsArray)
-        // Mettre à jour la variable favorites avec l'objet JSON mis à jour
          favorites = updatedJsonObj
-         // Save the JSON object to a file
 
          try
          {

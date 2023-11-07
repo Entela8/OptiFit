@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optifit.adapter.CategoryAdapter
@@ -21,19 +23,21 @@ class FavoritesActivity : ComponentActivity()
 
         val backArrow = findViewById<ImageView>(R.id.backArrow)
 
-        backArrow.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                finish()
-            }
-        })
+        backArrow.setOnClickListener { finish() }
 
         refreshVideos()
     }
 
-    fun refreshVideos()
+    private fun refreshVideos()
     {
         val favorites = FavoritesService(this).loadFavorites()
         val videosRecyclerView = findViewById<RecyclerView>(R.id.favoriteVideosRecyclerView)
+
+        val noFavorites = findViewById<TextView>(R.id.noFavorites)
+
+        noFavorites.isVisible =
+            !favorites.has("urls") || favorites.getJSONArray("urls").length()==0
+
         val layoutManager = GridLayoutManager(this, 1)
         videosRecyclerView.layoutManager = layoutManager
 

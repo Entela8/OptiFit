@@ -68,7 +68,7 @@ class VideoListAdapter(private val context: Context, private val videoUrls: JSON
     private fun buildHtmlContent(url: String): String {
         val htmlBuilder = StringBuilder()
         htmlBuilder.append("<html><body>")
-        htmlBuilder.append("<iframe width=\"100%\" style=\"aspect-ratio: 16/9\" src=\"$url\"></iframe>")
+        htmlBuilder.append("<iframe autoplay=\"false\" width=\"100%\" style=\"aspect-ratio: 16/9\" frameborder=\"0\" src=\"$url\"></iframe>")
         htmlBuilder.append("</body></html>")
         return htmlBuilder.toString()
     }

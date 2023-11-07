@@ -49,6 +49,19 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/noFavorites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/sfproregular"
+        android:text="@string/pas_encore_de_favoris"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favoriteVideosRecyclerView"
         android:layout_width="match_parent"

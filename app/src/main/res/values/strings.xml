@@ -22,5 +22,6 @@
     <string name="profil">Profil</string>
     <string name="profile_picture">Profile Picture</string>
     <string name="Favoris">Favoris</string>
+    <string name="pas_encore_de_favoris">Pas encore de favoris.</string>
 
 </resources>
