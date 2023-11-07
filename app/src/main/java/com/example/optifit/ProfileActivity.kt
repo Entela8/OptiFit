@@ -42,7 +42,11 @@ class ProfileActivity : ComponentActivity() {
 
         // BACK BUTTON
         val backArrow = findViewById<ImageView>(R.id.backArrow)
-        backArrow.setOnClickListener { finish() }
+        backArrow.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                finish()
+            }
+        })
 
         editName = findViewById(R.id.editName)
         editAge = findViewById(R.id.editAge)
@@ -117,8 +121,7 @@ class ProfileActivity : ComponentActivity() {
         changeImage.launch(pickImg)
     }
 
-    fun onSaveClicked()
-    {
+    fun onSaveClicked(view: View) {
         // Retrieve user input from EditText fields
         val name = editName.text.toString()
         val age = editAge.text.toString()
@@ -128,6 +131,7 @@ class ProfileActivity : ComponentActivity() {
         userData.put(Profile.NAME, name)
         userData.put(Profile.AGE, age)
         userData.put(Profile.DESCRIPTION, description)
+
 
         if (selectedProfilePhotoUri != null) {
             val photoFile = File(filesDir, FILE_NAME)
