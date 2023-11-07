@@ -57,11 +57,16 @@ class FavoritesService(private val context: Context){
         // Mettre à jour la variable favorites avec l'objet JSON mis à jour
          favorites = updatedJsonObj
          // Save the JSON object to a file
-         val file = File(context.filesDir, filename)
-         val outputStream = FileOutputStream(file)
-         outputStream.write(favorites.toString().toByteArray())
-         outputStream.close()
-         Toast.makeText(context, "Favori sauvegarde avec succes", Toast.LENGTH_SHORT).show()
+
+         try
+         {
+             saveAsFile(favorites)
+             Toast.makeText(context, "Favori sauvegarde avec succes", Toast.LENGTH_SHORT).show()
+         }
+         catch (e: Exception)
+         {
+             Toast.makeText(context, "UNE ERREUR EST SURVENUE" + e.message, Toast.LENGTH_SHORT).show()
+         }
      }
 
     fun deleteFavorite(videoUrl: String)
@@ -83,6 +88,45 @@ class FavoritesService(private val context: Context){
             }
             // Mettez à jour l'objet "favorites" avec le tableau "urls" mis à jour
             favorites.put("urls", urlsArray)
+
+            try
+            {
+                saveAsFile(favorites)
+                Toast.makeText(context, "Le favori a été supprimé", Toast.LENGTH_SHORT).show()
+            }
+            catch (e: Exception)
+            {
+                Toast.makeText(context, "UNE ERREUR EST SURVENUE" + e.message, Toast.LENGTH_SHORT).show()
+            }
         }
+    }
+
+    fun isFavorite(videoUrl: String): Boolean
+    {
+        val favorites = this.loadFavorites()
+
+        if(!favorites.has("urls")) return false
+
+        val videoArray = favorites.getJSONArray("urls")
+
+        var isElementExists = false
+
+        for (i in 0 until videoArray.length())
+        {
+            if (videoArray[i] == videoUrl) {
+                isElementExists = true
+                break
+            }
+        }
+
+        return isElementExists
+    }
+
+    fun saveAsFile(obj: JSONObject)
+    {
+        val file = File(context.filesDir, filename)
+        val outputStream = FileOutputStream(file)
+        outputStream.write(obj.toString().toByteArray())
+        outputStream.close()
     }
  }

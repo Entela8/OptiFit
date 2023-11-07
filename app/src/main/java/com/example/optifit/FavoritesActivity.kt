@@ -27,6 +27,11 @@ class FavoritesActivity : ComponentActivity()
             }
         })
 
+        refreshVideos()
+    }
+
+    fun refreshVideos()
+    {
         val favorites = FavoritesService(this).loadFavorites()
         val videosRecyclerView = findViewById<RecyclerView>(R.id.favoriteVideosRecyclerView)
         val layoutManager = GridLayoutManager(this, 1)
@@ -34,20 +39,10 @@ class FavoritesActivity : ComponentActivity()
 
         if (favorites.has("urls"))
         {
-            Log.d("ON PASSE", "la dedans")
-            val favoriteVideoAdapter = VideoListAdapter(this, favorites.getJSONArray("urls"))
+            val favoriteVideoAdapter = VideoListAdapter(this, favorites.getJSONArray("urls")) {
+                refreshVideos()
+            }
             videosRecyclerView.adapter = favoriteVideoAdapter
         }
-    }
-
-    fun jsonArrayToList(jsonArray: JSONArray): List<String>
-    {
-        val list = mutableListOf<String>()
-
-        for (i in 0 until jsonArray.length())
-        {
-            list.add(jsonArray.getString(i))
-        }
-        return list
     }
 }

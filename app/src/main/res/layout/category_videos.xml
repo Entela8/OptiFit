@@ -49,18 +49,11 @@
 
     </RelativeLayout>
 
-    <!-- Add WebView and favorite button for each video URL -->
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryVideoRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-        <WebView
-            android:id="@+id/videoWebView1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scrollbars="none">
-        </WebView>
-    </ScrollView>
+    <!-- Add WebView and favorite button for each video URL -->
 
 </LinearLayout>

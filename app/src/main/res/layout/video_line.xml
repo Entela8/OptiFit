@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <WebView
         android:id="@+id/videoWebView"
@@ -16,16 +16,18 @@
 
     <ImageButton
         android:id="@+id/videoFavoriteButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="347dp"
         android:layout_marginBottom="20dp"
+        android:backgroundTint="#00701414"
+        android:padding="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/heart_empty"
         app:layout_constraintBottom_toTopOf="@+id/videoWebView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_favorites"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,7 @@ import com.example.optifit.storage.FavoritesService
 import org.json.JSONArray
 import org.json.JSONObject
 
-class VideoListAdapter(private val context: Context, private val videoUrls: JSONArray) :
+class VideoListAdapter(private val context: Context, private val videoUrls: JSONArray, private val onFavorite : () -> Unit) :
     RecyclerView.Adapter<VideoListAdapter.VideoHolder>() {
 
     class VideoHolder(private val view: View) : RecyclerView.ViewHolder(view)
@@ -45,8 +45,24 @@ class VideoListAdapter(private val context: Context, private val videoUrls: JSON
         val htmlContent = buildHtmlContent(url)
         holder.videoWebView.loadData(htmlContent, "text/html", "utf-8")
 
+        val favoriteService = FavoritesService(context)
+
+        holder.favoriteButton.setImageResource(if (favoriteService.isFavorite(url)) R.drawable.heart_full else R.drawable.heart_empty)
+
         holder.favoriteButton.setOnClickListener {
-            FavoritesService(context).saveFavorite(url)
+            if(favoriteService.isFavorite(url))
+            {
+                favoriteService.deleteFavorite(url)
+                holder.favoriteButton.setImageResource(R.drawable.heart_empty)
+
+                onFavorite()
+            }
+            else
+            {
+                favoriteService.saveFavorite(url)
+                holder.favoriteButton.setImageResource(R.drawable.heart_full)
+                onFavorite()
+            }
         }
     }
     private fun buildHtmlContent(url: String): String {
